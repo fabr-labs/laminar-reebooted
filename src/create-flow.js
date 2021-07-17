@@ -1,10 +1,10 @@
-import { flowGenerator } from './flowGenerator.js';
+import { flowGenerator } from './flow-generator.js';
 import { applyMiddleware } from './apply-middleware.js';
 
-export function createFlow({ middleware: stepMiddleware, flowMiddleware = [] }) {
+export function createFlow({ stepMiddleware = [], flowMiddleware = [] }) {
   const pushFlow = applyMiddleware(async ({ flow, args = {} }) => {
-    for (const directive of flowGenerator({ flow, args, stepMiddleware, meta: { pushFlow } })) {
-      await directive;
+    for (const step of flowGenerator({ flow, args, stepMiddleware, meta: { pushFlow } })) {
+      await step;
     }
   }, flowMiddleware);
 

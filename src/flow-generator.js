@@ -1,8 +1,8 @@
 import { callFn } from './call-function.js';
-import { applyMiddleware } from './applyMiddleware.js';
+import { applyMiddleware } from './apply-middleware.js';
 
 export function* flowGenerator({ flow, args, middleware, meta }) {
-  for (const directive of flow(args)) {
-    yield applyMiddleware(callFn, middleware, { ...meta, flow })(directive);
+  for (const step of flow(args)) {
+    yield applyMiddleware(callFn, middleware, { ...meta, flow })(step);
   }
 }
